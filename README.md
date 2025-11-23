@@ -18,6 +18,14 @@ A modular, educational CHIP-8 Instruction Set Architecture emulator written in m
 - [Development Roadmap](#development-roadmap)
 - [Resources](#resources)
 
+## Author
+
+**Alex Inacio**
+
+* **Role**: Chief Implementation Engineer: Designed the modular architecture and wrote the core emulation engine.
+* **GitHub**: [@AlexInacio](https://github.com/AlexInacio)
+* **LinkedIn/Portfolio**: www.linkedin.com/in/alex-inacio
+
 ## Overview
 
 CHIP-8 is an interpreted programming language developed in the mid-1970s for early microcomputers. This emulator faithfully reproduces the CHIP-8 virtual machine with a focus on:
@@ -902,6 +910,7 @@ This project is released under the MIT License. See LICENSE file for details.
 - Joseph Weisbecker for creating CHIP-8
 - The emulation development community
 - All CHIP-8 test ROM creators
+- **Alex Inacio** - Chief Implementation Engineer: Designed the modular architecture and wrote the core emulation engine.
 
 ---
 
