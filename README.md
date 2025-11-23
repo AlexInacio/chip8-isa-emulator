@@ -7,7 +7,7 @@ A modular, educational CHIP-8 Instruction Set Architecture emulator written in m
 [![C++](https://img.shields.io/badge/C++-11-blue.svg)](https://isocpp.org/)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
-## 📋 Table of Contents
+## Table of Contents
 
 - [Overview](#overview)
 - [Architecture](#architecture)
@@ -18,7 +18,7 @@ A modular, educational CHIP-8 Instruction Set Architecture emulator written in m
 - [Development Roadmap](#development-roadmap)
 - [Resources](#resources)
 
-## 🎯 Overview
+## Overview
 
 CHIP-8 is an interpreted programming language developed in the mid-1970s for early microcomputers. This emulator faithfully reproduces the CHIP-8 virtual machine with a focus on:
 
@@ -37,7 +37,7 @@ CHIP-8 is an interpreted programming language developed in the mid-1970s for ear
 - **Timers**: 60Hz delay and sound timers
 - **Input**: 16-key hexadecimal keypad
 
-## 🏗️ Architecture
+## Architecture
 
 The emulator follows a layered architecture with clear separation of concerns:
 
@@ -62,7 +62,7 @@ The emulator follows a layered architecture with clear separation of concerns:
 3. **Interface Segregation**: Minimal, focused public interfaces
 4. **Open/Closed**: Easy to extend without modifying core components
 
-## 🔧 Components
+## Components
 
 ### 1. Memory Module (`Memory.h`)
 
@@ -352,7 +352,7 @@ chip8-isa-emulator/
 └── README.md
 ```
 
-## 🚀 Usage
+## Usage
 
 ### Basic Usage
 
@@ -390,7 +390,7 @@ int main() {
 ./chip8-emu roms/space_invaders.ch8
 ```
 
-## 📚 Technical Details
+## Technical Details
 
 ### Timing
 
@@ -417,12 +417,12 @@ Uses `std::default_random_engine` seeded with system time for the `CXNN` instruc
 ## 🛣️ Development Roadmap
 
 ### Core Features (Completed)
-- ✅ All 35 CHIP-8 opcodes
-- ✅ Modular architecture
-- ✅ Memory management
-- ✅ Display rendering
-- ✅ Input handling
-- ✅ Timer system
+-  All 35 CHIP-8 opcodes
+-  Modular architecture
+-  Memory management
+-  Display rendering
+-  Input handling
+-  Timer system
 
 ### Planned Extensions
 
@@ -472,11 +472,11 @@ Uses `std::default_random_engine` seeded with system time for the `CXNN` instruc
 - [Emulator Development Guide](http://www.emulator101.com/)
 - [Writing an Emulator in C++](https://austinmorlan.com/posts/chip8_emulator/)
 
-## 📄 License
+## License
 
 This project is released under the MIT License. See LICENSE file for details.
 
-## 🙏 Acknowledgments
+## Acknowledgments
 
 - Joseph Weisbecker for creating CHIP-8
 - The emulation development community
