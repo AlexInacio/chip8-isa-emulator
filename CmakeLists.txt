@@ -1,0 +1,192 @@
+cmake_minimum_required(VERSION 3.10)
+
+# Project configuration
+project(chip8-isa-emulator 
+    VERSION 1.0.0
+    DESCRIPTION "Modular CHIP-8 ISA Emulator"
+    LANGUAGES CXX
+)
+
+# C++ Standard
+set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CXX_EXTENSIONS OFF)
+
+# Compiler warnings
+if(MSVC)
+    add_compile_options(/W4)
+else()
+    add_compile_options(-Wall -Wextra -Wpedantic)
+endif()
+
+# Build type
+if(NOT CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE Release)
+endif()
+
+# Output directories
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+
+# Include directories
+include_directories(${PROJECT_SOURCE_DIR}/include)
+
+# Source files
+set(SOURCES
+    src/main.cpp
+    src/InstructionSet.cpp
+)
+
+# Header files (for IDE integration)
+set(HEADERS
+    include/Chip8.h
+    include/CPU.h
+    include/InstructionSet.h
+    include/Memory.h
+    include/Registers.h
+    include/Display.h
+    include/Input.h
+    include/Opcode.h
+)
+
+# Core executable (without graphics)
+add_executable(chip8-core ${SOURCES} ${HEADERS})
+
+# Enable compiler optimizations for Release
+target_compile_options(chip8-core PRIVATE
+    $<$<CONFIG:Release>:-O3>
+    $<$<CONFIG:Debug>:-g -O0>
+)
+
+# ============================================================================
+# SDL2 Integration (Optional)
+# ============================================================================
+option(BUILD_WITH_SDL2 "Build with SDL2 support for graphics/audio" OFF)
+
+if(BUILD_WITH_SDL2)
+    # Find SDL2
+    find_package(SDL2 REQUIRED)
+    
+    if(SDL2_FOUND)
+        message(STATUS "SDL2 found: ${SDL2_INCLUDE_DIRS}")
+        
+        # SDL2 executable
+        add_executable(chip8-sdl2
+            src/main_sdl2.cpp
+            src/InstructionSet.cpp
+        )
+        
+        target_include_directories(chip8-sdl2 PRIVATE ${SDL2_INCLUDE_DIRS})
+        target_link_libraries(chip8-sdl2 PRIVATE ${SDL2_LIBRARIES})
+        
+        target_compile_options(chip8-sdl2 PRIVATE
+            $<$<CONFIG:Release>:-O3>
+            $<$<CONFIG:Debug>:-g -O0>
+        )
+    else()
+        message(WARNING "SDL2 not found. Skipping SDL2 build.")
+    endif()
+endif()
+
+# ============================================================================
+# Testing (Optional)
+# ============================================================================
+option(BUILD_TESTS "Build unit tests" OFF)
+
+if(BUILD_TESTS)
+    enable_testing()
+    
+    # Google Test integration
+    find_package(GTest REQUIRED)
+    
+    if(GTEST_FOUND)
+        # All test files
+        add_executable(chip8-tests
+            tests/test_memory.cpp
+            tests/test_registers.cpp
+            tests/test_display.cpp
+            tests/test_input.cpp
+            tests/test_opcode.cpp
+            tests/test_instruction_set.cpp
+            tests/test_cpu.cpp
+            tests/test_chip8.cpp
+            src/InstructionSet.cpp
+        )
+        
+        target_link_libraries(chip8-tests 
+            PRIVATE 
+            GTest::GTest 
+            GTest::Main
+        )
+        
+        # Add tests to CTest
+        add_test(NAME AllTests COMMAND chip8-tests)
+        
+        # Individual test suites (optional)
+        add_test(NAME MemoryTests COMMAND chip8-tests --gtest_filter=MemoryTest.*)
+        add_test(NAME RegistersTests COMMAND chip8-tests --gtest_filter=RegistersTest.*)
+        add_test(NAME DisplayTests COMMAND chip8-tests --gtest_filter=DisplayTest.*)
+        add_test(NAME InputTests COMMAND chip8-tests --gtest_filter=InputTest.*)
+        add_test(NAME OpcodeTests COMMAND chip8-tests --gtest_filter=OpcodeTest.*)
+        add_test(NAME InstructionSetTests COMMAND chip8-tests --gtest_filter=InstructionSetTest.*)
+        add_test(NAME CPUTests COMMAND chip8-tests --gtest_filter=CPUTest.*)
+        add_test(NAME IntegrationTests COMMAND chip8-tests --gtest_filter=Chip8Test.*)
+        
+    else()
+        message(WARNING "GTest not found. Skipping tests.")
+    endif()
+endif()
+
+# ============================================================================
+# Installation
+# ============================================================================
+install(TARGETS chip8-core
+    RUNTIME DESTINATION bin
+)
+
+if(BUILD_WITH_SDL2 AND SDL2_FOUND)
+    install(TARGETS chip8-sdl2
+        RUNTIME DESTINATION bin
+    )
+endif()
+
+# Install headers (for library usage)
+install(DIRECTORY include/
+    DESTINATION include/chip8
+    FILES_MATCHING PATTERN "*.h"
+)
+
+# Install documentation
+install(FILES 
+    README.md 
+    LICENSE
+    DESTINATION share/doc/chip8-isa-emulator
+)
+
+# ============================================================================
+# CPack - Package generation
+# ============================================================================
+set(CPACK_PACKAGE_NAME "chip8-isa-emulator")
+set(CPACK_PACKAGE_VERSION ${PROJECT_VERSION})
+set(CPACK_PACKAGE_DESCRIPTION_SUMMARY ${PROJECT_DESCRIPTION})
+set(CPACK_PACKAGE_VENDOR "Your Name")
+set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
+set(CPACK_RESOURCE_FILE_README "${CMAKE_CURRENT_SOURCE_DIR}/README.md")
+
+include(CPack)
+
+# ============================================================================
+# Print configuration summary
+# ============================================================================
+message(STATUS "")
+message(STATUS "=== CHIP-8 ISA Emulator Configuration ===")
+message(STATUS "Version: ${PROJECT_VERSION}")
+message(STATUS "Build type: ${CMAKE_BUILD_TYPE}")
+message(STATUS "C++ Standard: ${CMAKE_CXX_STANDARD}")
+message(STATUS "Compiler: ${CMAKE_CXX_COMPILER_ID} ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "SDL2 Support: ${BUILD_WITH_SDL2}")
+message(STATUS "Build Tests: ${BUILD_TESTS}")
+message(STATUS "Install prefix: ${CMAKE_INSTALL_PREFIX}")
+message(STATUS "==========================================")
+message(STATUS "")
