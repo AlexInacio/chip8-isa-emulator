@@ -309,7 +309,7 @@ const Display& getDisplay()              // Access display buffer
 Input& getInput()                        // Access input system
 ```
 
-## 🔨 Building
+## Building
 
 ### Prerequisites
 
@@ -413,78 +413,6 @@ This emulator implements the original CHIP-8 behavior:
 ### Random Number Generation
 
 Uses `std::default_random_engine` seeded with system time for the `CXNN` instruction.
-
-## 🛣️ Development Roadmap
-
-### Core Features (Completed)
--  All 35 CHIP-8 opcodes
--  Modular architecture
--  Memory management
--  Display rendering
--  Input handling
--  Timer system
-
-### Planned Extensions
-
-**Phase 1: Graphics & Audio**
-- [ ] SDL2 integration for display
-- [ ] Audio output for sound timer
-- [ ] Configurable display scaling
-
-**Phase 2: Development Tools**
-- [ ] Debugger with breakpoints
-- [ ] Disassembler
-- [ ] Memory viewer
-- [ ] Register inspector
-
-**Phase 3: Advanced Features**
-- [ ] Save states
-- [ ] Rewind functionality
-- [ ] Recording/playback
-- [ ] Performance profiling
-
-**Phase 4: Extended Compatibility**
-- [ ] SUPER-CHIP support (128x64)
-- [ ] XO-CHIP extensions
-- [ ] Configurable quirks modes
-
-### Contribution Ideas
-
-- Implement test suite with catch2/gtest
-- Add CMake build system
-- Create GUI frontend with ImGui
-- Port to WebAssembly
-- Add command-line debugger
-- Implement different display backends (SFML, raylib)
-
-## 📖 Resources
-
-### CHIP-8 Documentation
-- [Cowgod's CHIP-8 Technical Reference](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
-- [CHIP-8 Wikipedia](https://en.wikipedia.org/wiki/CHIP-8)
-- [Mastering CHIP-8](http://mattmik.com/files/chip8/mastering/chip8.html)
-
-### Test ROMs
-- [chip8-test-suite](https://github.com/Timendus/chip8-test-suite)
-- [CHIP-8 Games Pack](https://www.zophar.net/pdroms/chip8.html)
-
-### Emulation Resources
-- [Emulator Development Guide](http://www.emulator101.com/)
-- [Writing an Emulator in C++](https://austinmorlan.com/posts/chip8_emulator/)
-
-## License
-
-This project is released under the MIT License. See LICENSE file for details.
-
-## Acknowledgments
-
-- Joseph Weisbecker for creating CHIP-8
-- The emulation development community
-- All CHIP-8 test ROM creators
-
----
-
-**Note**: This is a core emulator implementation. For a complete, playable experience, integrate with a graphics library like SDL2 or SFML.
 
 ## 1. Component Architecture (High-Level)
 
@@ -906,3 +834,76 @@ graph TD
     style H fill:#FFA726,stroke:#F57C00,stroke-width:2px,color:#fff
     style I fill:#AB47BC,stroke:#7B1FA2,stroke-width:2px,color:#fff
 ```
+
+## Development Roadmap
+
+### Core Features (Completed)
+-  All 35 CHIP-8 opcodes
+-  Modular architecture
+-  Memory management
+-  Display rendering
+-  Input handling
+-  Timer system
+
+### Planned Extensions
+
+**Phase 1: Graphics & Audio**
+- [ ] SDL2 integration for display
+- [ ] Audio output for sound timer
+- [ ] Configurable display scaling
+
+**Phase 2: Development Tools**
+- [ ] Debugger with breakpoints
+- [ ] Disassembler
+- [ ] Memory viewer
+- [ ] Register inspector
+
+**Phase 3: Advanced Features**
+- [ ] Save states
+- [ ] Rewind functionality
+- [ ] Recording/playback
+- [ ] Performance profiling
+
+**Phase 4: Extended Compatibility**
+- [ ] SUPER-CHIP support (128x64)
+- [ ] XO-CHIP extensions
+- [ ] Configurable quirks modes
+
+### Contribution Ideas
+
+- Implement test suite with catch2/gtest
+- Add CMake build system
+- Create GUI frontend with ImGui
+- Port to WebAssembly
+- Add command-line debugger
+- Implement different display backends (SFML, raylib)
+
+## Resources
+
+### CHIP-8 Documentation
+- [Cowgod's CHIP-8 Technical Reference](http://devernay.free.fr/hacks/chip8/C8TECH10.HTM)
+- [CHIP-8 Wikipedia](https://en.wikipedia.org/wiki/CHIP-8)
+- [Mastering CHIP-8](http://mattmik.com/files/chip8/mastering/chip8.html)
+
+### Test ROMs
+- [chip8-test-suite](https://github.com/Timendus/chip8-test-suite)
+- [CHIP-8 Games Pack](https://www.zophar.net/pdroms/chip8.html)
+
+### Emulation Resources
+- [Emulator Development Guide](http://www.emulator101.com/)
+- [Writing an Emulator in C++](https://austinmorlan.com/posts/chip8_emulator/)
+
+## License
+
+This project is released under the MIT License. See LICENSE file for details.
+
+## Acknowledgments
+
+- Joseph Weisbecker for creating CHIP-8
+- The emulation development community
+- All CHIP-8 test ROM creators
+
+---
+
+**Note**: This is a core emulator implementation. For a complete, playable experience, integrate with a graphics library like SDL2 or SFML.
+
